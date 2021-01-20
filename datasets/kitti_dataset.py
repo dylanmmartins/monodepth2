@@ -50,6 +50,33 @@ class KITTIDataset(MonoDataset):
 
         return color
 
+class WorldcamDataset(MonoDataset):
+    """Superclass for worldcam recording dataset loader
+    """
+    def __init__(self, *args, **kwargs):
+        super(WorldcamDataset, self).__init__(*args, **kwargs)
+
+        self.K = np.array([],
+                          [],
+                          [],
+                          [], dtype=np.float32)
+
+        self.full_res_shape = (640, 480)
+
+    # this should return false because we don't have velodyne depth binaries
+    def check_depth(self):
+        return False
+
+    def get_image_path(self, folder, frame_index, side):
+        image_path = os.path.join(self.data_path, folder)
+        return image_path
+
+    def get_color(self, folder, frame_index, side, do_flip):
+        color = self.loader(self.get_image_path(folder, frame_index, side))
+        if do_flip:
+            color = color.transpose(pil.FLIP_LEFT_RIGHT)
+        return color
+
 
 class KITTIRAWDataset(KITTIDataset):
     """KITTI dataset which loads the original velodyne depth maps for ground truth
