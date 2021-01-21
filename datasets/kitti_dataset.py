@@ -56,10 +56,9 @@ class WorldcamDataset(MonoDataset):
     def __init__(self, *args, **kwargs):
         super(WorldcamDataset, self).__init__(*args, **kwargs)
 
-        self.K = np.array([],
-                          [],
-                          [],
-                          [], dtype=np.float32)
+        self.K = np.array([[221.62924024/640,0,326.60033677/640],
+                          [0,215.86838048/480,238.46541417/480],
+                          [0,0,1]], dtype=np.float32)
 
         self.full_res_shape = (640, 480)
 
@@ -68,7 +67,7 @@ class WorldcamDataset(MonoDataset):
         return False
 
     def get_image_path(self, folder, frame_index, side):
-        image_path = os.path.join(self.data_path, folder)
+        image_path = os.path.join(self.data_path, "113020_G6H27P8LT_control_Rig2_fm1_WORLDcalib_frame-{:06d}.jpg".format(frame_index))
         return image_path
 
     def get_color(self, folder, frame_index, side, do_flip):
@@ -76,7 +75,6 @@ class WorldcamDataset(MonoDataset):
         if do_flip:
             color = color.transpose(pil.FLIP_LEFT_RIGHT)
         return color
-
 
 class KITTIRAWDataset(KITTIDataset):
     """KITTI dataset which loads the original velodyne depth maps for ground truth
