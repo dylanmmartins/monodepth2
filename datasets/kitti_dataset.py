@@ -56,9 +56,10 @@ class WorldcamDataset(MonoDataset):
     def __init__(self, *args, **kwargs):
         super(WorldcamDataset, self).__init__(*args, **kwargs)
 
-        self.K = np.array([[221.62924024/640,0,326.60033677/640],
-                          [0,215.86838048/480,238.46541417/480],
-                          [0,0,1]], dtype=np.float32)
+        self.K = np.array([[221.62924024/640,0,326.60033677/640,0],
+                          [0,215.86838048/480,238.46541417/480,0],
+                          [0,0,1,0],
+                          [0,0,0,1]], dtype=np.float32)
 
         self.full_res_shape = (640, 480)
 
