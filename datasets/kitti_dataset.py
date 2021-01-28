@@ -68,7 +68,7 @@ class WorldcamDataset(MonoDataset):
         return False
 
     def get_image_path(self, folder, frame_index, side):
-        image_path = os.path.join(self.data_path, "113020_G6H27P8LT_control_Rig2_fm1_WORLDcalib_frame-{:06d}.jpg".format(frame_index))
+        image_path = os.path.join(self.data_path, "112920_G6H27P8LT_control_Rig2_fm1_WORLDdeinter_frame-{:06d}.jpg".format(frame_index))
         return image_path
 
     def get_color(self, folder, frame_index, side, do_flip):
